@@ -59,10 +59,10 @@ body{
       }
       ret = data["result"]
       if (ret == false){
-        // location.href = "./bad.html"
+        ocation.href = "./bad.html"
       }
       $.cookie("result",ret)
-      // location.href = "./"+ret+".html"
+      location.href = "./"+ret+".html"
     }).fail(function(xhr, textStatus, errorThrown) {
           console.log("NG:" + textStatus.status);
           $("#titles").text("ごめんなさい、名前の認証ができていないか、不具合が発生しています…")
