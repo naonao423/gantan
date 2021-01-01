@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <title>凜ちゃん</title>
+</head>
+<style type="text/css">
+body{
+  border:10px solid red;
+  height:1000px;
+  width:98%;
+}
+</style>
+<body>
+<br>
+<br>
+<br>
+<!-- ここをのぞくとはいい度胸だな…… -->
+<h1 align=center>りんちゃん</h1>
+<h5 align=center>東京での仕事はどうですか～<br>
+またバンド演奏できたらいいですね～</h5>
+<h3 style="color:red" align=center>実は"あなたたち"だけに特別に試練があります。<br>
+解いてこの中に解答を入れてください。(ひらがなで入れてね)</h3>
+<p align=center>きそでもない</p>
+<input type="text" style="width:120px;height:20px;position: absolute;left:46%" id="inputs">
+<br>
+<br>
+<button type="button" style="width:140px;height:40px;position: absolute;left:46%" id="start">提出ボタン</button>
+<script>
+  if ($.cookie("result") != 3){
+    location.href = "bad.html"
+  }
+  $("#start").on("click",function(event){
+      inputs = $("#inputs").val();
+      send_file = {}
+      send_file["name"] = inputs
+      console.log(send_file)
+      check_url = ""
+      $.ajax({
+        "url":"http://127.0.0.1:8000/identification",
+        "type":"POST",
+        data: JSON.stringify(send_file),
+        contentType:'application/json'
+    }).done(function(data){
+      console.log(data)
+      ret = data["result"]
+      $.cookie("result",ret)
+      location.href = "./present.html"
+    }).fail(function(xhr, textStatus, errorThrown) {
+          console.log("NG:" + textStatus.status);
+          $("#titles").text("違います~^^")
+          return ret
+      }
+    )
+  })
+
+</script>
+  <p align=center style="position:absolute;left:48%;bottom:0%">このサイトは全力で個人情報を守ります。</p>
+</body>
+</html>

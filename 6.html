@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <title>銀次郎</title>
+</head>
+<style type="text/css">
+body{
+  border:10px solid red;
+  height:1000px;
+  width:98%;
+}
+</style>
+<body>
+<br>
+<br>
+<br>
+<!-- ここをのぞくとはいい度胸だな…… -->
+<h1 align=center>銀ちゃん</h1>
+<h5 align=center>あけましておめでとうございます<br>
+ゲームばっかりせずに研究するんやで</h5>
+<button type="button" style="width:140px;height:40px;position: absolute;left:46%" id="start">年賀状ボタン</button>
+<script>
+  if ($.cookie("result") != 6){
+    location.href = "bad.html"
+  }
+  $("#start").on("click",function(event){
+    location.href = "present.html"
+  })
+
+</script>
+  <p align=center style="position:absolute;left:48%;bottom:0%">このサイトは全力で個人情報を守ります。</p>
+</body>
+</html>

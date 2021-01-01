@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <title>ようこそ</title>
+</head>
+<style type="text/css">
+body{
+  border:10px solid red;
+  height:1000px;
+  width:98%;
+}
+</style>
+<body>
+<br>
+<br>
+<br>
+<!-- ここをのぞくとはいい度胸だな…… -->
+<h1 align=center>sさんのお部屋</h1>
+<h5 align=center>クオリティは許して（もしかしたら動作しないかも）</h5>
+<button type="button" style="width:80px;height:40px;position: absolute;left:48%" id="start">start!!</button>
+<script>
+  clickcount = 0
+  $.cookie("result",0)
+  $("#start").on("click",function(event){
+    clickcount += 1
+    $("#te").remove()
+    p_h = $(this).css("top")
+    p_w = $(this).css("left")
+    console.log(p_h,p_w)
+    append_part = `<h4 id="te" style="top:${p_h};position:absolute;left:${p_w}">ひょいッ！</h4>`
+    $("body").append(append_part)
+    height = Math.random()
+    width = Math.random()
+    $(this).css("left",width*100+"%")
+    $(this).css("top",height*100+"%")
+    if (clickcount == 6){
+      location.href = '/1.html'
+    }
+  })
+</script>
+  <p align=center style="position:absolute;left:48%;bottom:0%">このサイトは全力で個人情報を守ります。</p>
+</body>
+</html>

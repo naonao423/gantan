@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <title>年賀状</title>
+</head>
+<style type="text/css">
+body{
+  border:10px solid red;
+  height:100%;
+  width:98%;
+}
+</style>
+<body>
+<br>
+<br>
+<br>
+<!-- ここをのぞくとはいい度胸だな…… -->
+<h1 align=center>～年賀状～</h1>
+<div id="image"></div>
+<h4>この年賀状は一から全部自分で作りました<span style="font-size:6px">絵うまくない？</span></h4>
+<script>
+
+ number = $.cookie("result")
+ console.log(number)
+  append_part = `<img src="./img/${number}.jpg" alt="" / style="width:100%;height:100%;">`
+  $("#image").append(append_part)
+</script>
+</body>
+</html>
