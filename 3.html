@@ -42,7 +42,7 @@ body{
       console.log(send_file)
       check_url = ""
       $.ajax({
-        "url":"https://77b40lnlng.execute-api.ap-northeast-1.amazonaws.com/api/check/identification",
+        "url":"https://77b40lnlng.execute-api.ap-northeast-1.amazonaws.com/api/identification",
         "type":"POST",
         data: JSON.stringify(send_file),
         contentType:'application/json'
