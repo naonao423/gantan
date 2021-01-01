@@ -33,7 +33,7 @@ body{
 <button type="button" style="width:140px;height:40px;position: absolute;left:46%" id="start">提出ボタン</button>
 <script>
   if ($.cookie("result") != 3){
-    location.href = "bad.html"
+    location.href = "./bad.html"
   }
   $("#start").on("click",function(event){
       inputs = $("#inputs").val();
