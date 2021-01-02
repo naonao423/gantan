@@ -24,13 +24,42 @@ body{
 <h1 align=center>銀ちゃん</h1>
 <h5 align=center>あけましておめでとうございます<br>
 ゲームばっかりせずに研究するんやで</h5>
+
+
+<p align=center>clickカウント（100までがんばれ！）: <span id="count">0</span></p>
+<p align=center id="comment"></p>
 <button type="button" style="width:140px;height:40px;position: absolute;left:46%" id="start">年賀状ボタン</button>
 <script>
+  flag = 0
+  crickcount = 0
   if ($.cookie("result") != 6){
     location.href = "./bad.html"
   }
   $("#start").on("click",function(event){
+    crickcount += 1
+
+    console.log(Math.random())
+    if (crickcount == 50 && flag == 0){
+      crickcount = 0
+      flag = 1
+      $("#comment").text("ひょいッ")
+    }
+    if (crickcount > 80){
+      if (Math.random() > 0.7){
+        crickcount -= 2
+        $("#comment").text("がんばれ！！")
+      }
+    }
+    if (crickcount > 90){
+      if (Math.random() > 0.6){
+        crickcount -= 2
+        $("#comment").text("あれれ？＾＾")
+      }
+    }
+  $("#count").text(crickcount)
+    if (crickcount > 99){
     location.href = "./present.html"
+  }
   })
 
 </script>

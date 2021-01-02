@@ -24,13 +24,40 @@ body{
 <h1 align=center>みーちゃん</h1>
 <h5 align=center>どうですかこの無駄手間の多い新年のあいさつは<br>
 今年もいっぱい遊べたらええね</h5>
+<br>
+<br> <p align=center>今年こそはきっとあなたにたくさんのいいことがありますように </p>
+<br> <p align=center>今年ことはきっと世界にたくさんのいいことがありますように </p>
+<br> <p align=center> OOOO <input type="text" id=inputs> O (数字で) </p>
+<br>
 <button type="button" style="width:140px;height:40px;position: absolute;left:46%" id="start">年賀状ボタン</button>
 <script>
   if ($.cookie("result") != 5){
     location.href = "./bad.html"
   }
   $("#start").on("click",function(event){
-    location.href = "./present.html"
+      inputs = $("#inputs").val();
+      inputs = String(inputs)
+      send_file = {}
+      send_file["name"] = inputs
+      console.log(send_file)
+      check_url = ""
+      $.ajax({
+        "url":"https://77b40lnlng.execute-api.ap-northeast-1.amazonaws.com/api/identification",
+        "type":"POST",
+        data: JSON.stringify(send_file),
+        contentType:'application/json'
+    }).done(function(data){
+      console.log(data)
+      ret = data["result"]
+      if (ret == 100){
+      location.href = "./present.html"
+    }
+    }).fail(function(xhr, textStatus, errorThrown) {
+          console.log("NG:" + textStatus.status);
+          $("#titles").text("違います~^^")
+          return ret
+      }
+    )
   })
 
 </script>

@@ -15,8 +15,17 @@ body{
   height:1000px;
   width:98%;
 }
+.drag-and-drop {
+  position: absolute;
+  z-index: 1000;
+}
+
+.drag {
+    z-index: 1001;
+}
 </style>
 <body>
+<div id="goal" style="position:absolute;height:200px;width:98%; background-color:blue; top:820px" ></div>
 <br>
 <br>
 <br>
@@ -24,8 +33,121 @@ body{
 <h1 align=center>さらさら</h1>
 <h5 align=center>研究はいつから始まるんですかね<br>
 あまり無理せずに頑張ってください～</h5>
-<button type="button" style="width:140px;height:40px;position: absolute;left:46%" id="start">年賀状ボタン</button>
+<br><p align=center>四角の物体をを下の青い中に運んでください～(これ作るの一番時間かかった)</p>
+<div class="drag-and-drop" id="red-box" style="top:10px;left:50%;height:100px;width:100px;border:solid 1px;background-color:rgba(185, 217, 40, 0.27)"><p id="comment" style="color:red"></p></div>
 <script>
+(function(){
+
+  //要素の取得
+  var elements = document.getElementsByClassName("drag-and-drop");
+
+  //要素内のクリックされた位置を取得するグローバル（のような）変数
+  var x;
+  var y;
+  flag1 = 0
+  flag2 = 0
+  flag3 = 0
+  //マウスが要素内で押されたとき、又はタッチされたとき発火
+  for(var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener("mousedown", mdown, false);
+      elements[i].addEventListener("touchstart", mdown, false);
+  }
+
+  //マウスが押された際の関数
+  function mdown(e) {
+
+      //クラス名に .drag を追加
+      this.classList.add("drag");
+
+      //タッチデイベントとマウスのイベントの差異を吸収
+      if(e.type === "mousedown") {
+          var event = e;
+      } else {
+          var event = e.changedTouches[0];
+      }
+
+      //要素内の相対座標を取得
+      x = event.pageX - this.offsetLeft;
+      y = event.pageY - this.offsetTop;
+
+      //ムーブイベントにコールバック
+      document.body.addEventListener("mousemove", mmove, false);
+      document.body.addEventListener("touchmove", mmove, false);
+  }
+
+  //マウスカーソルが動いたときに発火
+  function mmove(e) {
+
+      //ドラッグしている要素を取得
+      var drag = document.getElementsByClassName("drag")[0];
+
+      //同様にマウスとタッチの差異を吸収
+      if(e.type === "mousemove") {
+          var event = e;
+      } else {
+          var event = e.changedTouches[0];
+      }
+
+      //フリックしたときに画面を動かさないようにデフォルト動作を抑制
+      e.preventDefault();
+
+      //マウスが動いた場所に要素を動かす
+      drag.style.top = event.pageY - y + "px";
+      drag.style.left = event.pageX - x + "px";
+      console.log(event.pageY - y)
+
+      if (event.pageY - y  > 200 && flag1 == 0){
+        //ムーブベントハンドラの消去
+        $("#comment").text("運んじゃうの…？")
+        mup()
+        flag1 = 1
+      }
+
+      if (event.pageY - y  > 500 && flag2 == 0){
+        //ムーブベントハンドラの消去
+        $("#comment").text("考え直して！！")
+        mup()
+        drag.style.top = 100 + "px";
+        drag.style.left = event.pageX - x + "px";
+        flag2 += 1
+      }
+
+      if (event.pageY - y  > 600 && flag3 == 0){
+        //ムーブベントハンドラの消去
+        $("#comment").text("うわぁあああ")
+        mup()
+        flag3 += 1
+      }
+
+      if (event.pageY - y  > 800 && flag2 == 1){
+        //ムーブベントハンドラの消去
+        location.href= "./present.html"
+      }
+
+
+      //マウスボタンが離されたとき、またはカーソルが外れたとき発火
+      drag.addEventListener("mouseup", mup, false);
+      document.body.addEventListener("mouseleave", mup, false);
+      drag.addEventListener("touchend", mup, false);
+      document.body.addEventListener("touchleave", mup, false);
+
+  }
+
+  //マウスボタンが上がったら発火
+  function mup(e) {
+      var drag = document.getElementsByClassName("drag")[0];
+
+      //ムーブベントハンドラの消去
+      document.body.removeEventListener("mousemove", mmove, false);
+      drag.removeEventListener("mouseup", mup, false);
+      document.body.removeEventListener("touchmove", mmove, false);
+      drag.removeEventListener("touchend", mup, false);
+
+      //クラス名 .drag も消す
+      drag.classList.remove("drag");
+  }
+
+})()
   if ($.cookie("result") != 2){
     location.href = "./bad.html"
   }
